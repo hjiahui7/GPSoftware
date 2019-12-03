@@ -1,11 +1,12 @@
 package software.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserPosts {
-  private Integer id;
+  private Integer pid;
 
-  private Integer userId;
+  private Integer uid;
 
   private String nickName;
 
@@ -15,26 +16,28 @@ public class UserPosts {
 
   private Date createTime;
 
+  private Date dealTime;
+
   private Integer commentCount;
 
   private Integer motherPostId;
 
   private Integer level;
 
+  private List<UserComments> userComments;
+  private String token;
 
-  public UserPosts() {
-  }
-
+  public UserPosts() {}
 
   public UserPosts(
-      Integer userId,
+      Integer uid,
       String nickName,
       String postTitle,
       String postData,
       Date createTime,
       Integer commentCount,
       Integer motherPostId) {
-    this.userId = userId;
+    this.uid = uid;
     this.nickName = nickName;
     this.postTitle = postTitle;
     this.postData = postData;
@@ -44,7 +47,7 @@ public class UserPosts {
   }
 
   public UserPosts(
-      Integer userId,
+      Integer uid,
       String nickName,
       String postTitle,
       String postData,
@@ -52,7 +55,7 @@ public class UserPosts {
       Integer commentCount,
       Integer motherPostId,
       Integer level) {
-    this.userId = userId;
+    this.uid = uid;
     this.nickName = nickName;
     this.postTitle = postTitle;
     this.postData = postData;
@@ -62,20 +65,44 @@ public class UserPosts {
     this.level = level;
   }
 
-  public Integer getId() {
-    return id;
+  public Integer getPid() {
+    return pid;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setPid(Integer pid) {
+    this.pid = pid;
   }
 
-  public Integer getUserId() {
-    return userId;
+  public Integer getUid() {
+    return uid;
   }
 
-  public void setUserId(Integer userId) {
-    this.userId = userId;
+  public Date getDealTime() {
+    return dealTime;
+  }
+
+  public void setDealTime(Date dealTime) {
+    this.dealTime = dealTime;
+  }
+
+  public List<UserComments> getUserComments() {
+    return userComments;
+  }
+
+  public void setUserComments(List<UserComments> userComments) {
+    this.userComments = userComments;
+  }
+
+  public void setUid(Integer uid) {
+    this.uid = uid;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
   public String getNickName() {

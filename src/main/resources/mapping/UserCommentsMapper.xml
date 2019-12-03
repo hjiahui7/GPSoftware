@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="software.dao.UserCommentsMapper">
+    <resultMap id="BaseResultMap" type="software.model.UserComments">
+        <id column="cid" jdbcType="INTEGER" property="cid"/>
+        <result column="pid" jdbcType="INTEGER" property="pid"/>
+        <result column="mid" jdbcType="INTEGER" property="mid"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="user_nick_from" jdbcType="VARCHAR" property="userNickFrom"/>
+        <result column="user_nick_to" jdbcType="VARCHAR" property="userNickTo"/>
+        <result column="uid_from" jdbcType="INTEGER" property="uidFrom"/>
+        <result column="uid_to" jdbcType="INTEGER" property="uidTo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    cid, pid, mid,comment, create_time, user_nick_from, user_nick_to, uid_from,
+    uid_to
+  </sql>
+
+    <select id="selectAllCommentsByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *  from users_comments where uid_from =#{uid,jdbcType=INTEGER} ORDER  BY create_time ASC;
+    </select>
+
+    <select id="selectAllCommentsByMid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *  from users_comments where mid =#{mid,jdbcType=INTEGER} ORDER  BY create_time ASC;
+    </select>
+
+
+    <delete id="deleteByMotherId" parameterType="java.lang.Integer">
+    delete from users_comments
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+
+    <delete id="deleteCommentByPid" parameterType="java.lang.Integer">
+    delete from users_comments
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users_comments
+        where cid = #{cid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users_comments
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="software.model.UserComments">
+    insert into users_comments (cid, pid,mid, comment,
+      create_time, comment_level, user_nick_from, 
+      user_nick_to, uid_from, uid_to
+      )
+    values (#{cid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER},#{mid,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{userNickFrom,jdbcType=VARCHAR},
+      #{userNickTo,jdbcType=VARCHAR}, #{uidFrom,jdbcType=INTEGER}, #{uidTo,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="software.model.UserComments">
+        insert into users_comments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cid != null">
+                cid,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="mid != null">
+                mid,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="userNickFrom != null">
+                user_nick_from,
+            </if>
+            <if test="userNickTo != null">
+                user_nick_to,
+            </if>
+            <if test="uidFrom != null">
+                uid_from,
+            </if>
+            <if test="uidTo != null">
+                uid_to,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cid != null">
+                #{cid,jdbcType=INTEGER},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="mid != null">
+                #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userNickFrom != null">
+                #{userNickFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="userNickTo != null">
+                #{userNickTo,jdbcType=VARCHAR},
+            </if>
+            <if test="uidFrom != null">
+                #{uidFrom,jdbcType=INTEGER},
+            </if>
+            <if test="uidTo != null">
+                #{uidTo,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="software.model.UserComments">
+        update users_comments
+        <set>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="mid != null">
+                mid = #{mid,jdbcType=INTEGER},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userNickFrom != null">
+                user_nick_from = #{userNickFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="userNickTo != null">
+                user_nick_to = #{userNickTo,jdbcType=VARCHAR},
+            </if>
+            <if test="uidFrom != null">
+                uid_from = #{uidFrom,jdbcType=INTEGER},
+            </if>
+            <if test="uidTo != null">
+                uid_to = #{uidTo,jdbcType=INTEGER},
+            </if>
+        </set>
+        where cid = #{cid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="software.model.UserComments">
+    update users_comments
+    set pid = #{pid,jdbcType=INTEGER},
+    mid = #{mid,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_nick_from = #{userNickFrom,jdbcType=VARCHAR},
+      user_nick_to = #{userNickTo,jdbcType=VARCHAR},
+      uid_from = #{uidFrom,jdbcType=INTEGER},
+      uid_to = #{uidTo,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

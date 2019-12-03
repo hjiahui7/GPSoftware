@@ -1,36 +1,20 @@
 package software.jsonModel;
 
+import software.model.UserComments;
 import software.model.UserInfo;
 import software.model.UserPosts;
-
 import java.util.List;
 
 public class ResponseObject {
-  int userId;
-  String msg;
-  String token;
-  String nickName;
-  String errMsg;
-  List<IndexObject> objects;
-  List<UserPosts> userPosts;
-  UserInfo userInfo;
-  private int postId;
-  private int motherPostId;
+  private String msg;
+  private String errMsg;
+  private int msgType;
+  private List<IndexObject> objects;
+  private List<UserPosts> userPosts;
+  private List<UserComments> comments;
+  private UserInfo userInfo;
 
   public ResponseObject() {}
-
-  public int getUserId() {
-    return userId;
-  }
-
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
-
-  public ResponseObject(int postId, int motherPostId) {
-    this.postId = postId;
-    this.motherPostId = motherPostId;
-  }
 
   public List<UserPosts> getUserPosts() {
     return userPosts;
@@ -56,59 +40,31 @@ public class ResponseObject {
     this.errMsg = errMsg;
   }
 
-  public int getPostId() {
-    return postId;
-  }
-
-  public void setPostId(int postId) {
-    this.postId = postId;
-  }
-
-  public int getMotherPostId() {
-    return motherPostId;
-  }
-
-  public void setMotherPostId(int motherPostId) {
-    this.motherPostId = motherPostId;
-  }
-
-  @Override
-  public String toString() {
-    return "ResponseObject{"
-        + "msg='"
-        + msg
-        + '\''
-        + ", token='"
-        + token
-        + '\''
-        + ", nickName='"
-        + nickName
-        + '\''
-        + '}';
-  }
-
   public String getMsg() {
     return msg;
   }
 
+  public List<UserComments> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<UserComments> comments) {
+    this.comments = comments;
+  }
+
+
+  public int getMsgType() {
+    return msgType;
+  }
+
+
+  public void setMsgType(int msgType) {
+    this.msgType = msgType;
+  }
+
+
   public void setMsg(String msg) {
     this.msg = msg;
-  }
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
-
-  public String getNickName() {
-    return nickName;
-  }
-
-  public void setNickName(String nickName) {
-    this.nickName = nickName;
   }
 
   public List<IndexObject> getObjects() {

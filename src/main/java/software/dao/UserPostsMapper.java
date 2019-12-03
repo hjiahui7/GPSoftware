@@ -4,16 +4,17 @@ import org.apache.ibatis.annotations.Param;
 import software.jsonModel.IndexObject;
 import software.model.UserPosts;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserPostsMapper {
-  int deleteByPrimaryKey(Integer id);
+  int deleteByPrimaryKey(Integer pid);
 
   int insert(UserPosts record);
 
   int insertSelective(UserPosts record);
 
-  UserPosts selectByPrimaryKey(Integer id);
+  UserPosts selectByPrimaryKey(Integer pid);
 
   int updateByPrimaryKeySelective(UserPosts record);
 
@@ -21,15 +22,19 @@ public interface UserPostsMapper {
 
   List<IndexObject> selectAllUserPosts();
 
-  UserPosts selectUserPostByPostId(@Param("postId") int postId);
+  List<IndexObject> selectAllPostsByTime(Date time);
+
+  UserPosts selectUserPostByPostId(@Param("pid") int pid);
 
   List<UserPosts> selectAllUserPostByMotherId(@Param("motherPostId") int motherPostId);
 
-  List<UserPosts> selectUserPostByUserId(@Param("userId") int userId);
+  List<UserPosts> selectUserPostByUserId(@Param("uid") int uid);
 
-  int deleteByPostId(int postId);
+  List<UserPosts> selectUserReplyByUserId(@Param("uid") int uid);
+
+  int deleteByPostId(int pid);
 
   int deleteByMotherPostId(int motherPostId);
 
-  List<UserPosts> selectOtherPostByUserId(@Param("userId") int userId);
+  List<UserPosts> selectOtherPostByUserId(@Param("uid") int uid);
 }

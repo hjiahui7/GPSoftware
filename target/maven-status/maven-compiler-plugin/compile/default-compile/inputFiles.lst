@@ -3,12 +3,13 @@ C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\model\UserInf
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\impl\IndexServiceImpl.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\impl\UserProfileServiceImpl.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\App.java
-C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\jsonModel\PostObject.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\config\CorsConfig.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\dao\UserPostsMapper.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\jsonModel\IndexObject.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\controller\UserInfoController.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\UserProfileService.java
+C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\dao\UserCommentsMapper.java
+C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\model\UserComments.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\dao\UserInfoMapper.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\IndexService.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\config\CorsFilter.java
@@ -20,4 +21,3 @@ C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\util\
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\util\WebLogAspect.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\jsonModel\ResponseObject.java
 C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\impl\UserServiceImpl.java
-C:\Users\HJH\Desktop\笔记\spring\GPSoftware\src\main\java\software\service\util\Sha256.java

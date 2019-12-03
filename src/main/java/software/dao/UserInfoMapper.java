@@ -4,26 +4,20 @@ import org.apache.ibatis.annotations.Param;
 import software.model.UserInfo;
 
 public interface UserInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+  int deleteByPrimaryKey(Integer uid);
 
-    int insert(UserInfo record);
+  int insert(UserInfo record);
 
-    int insertSelective(UserInfo record);
+  int insertSelective(UserInfo record);
 
-    UserInfo selectByPrimaryKey(Integer id);
+  UserInfo selectByPrimaryKey(Integer uid);
 
-    /**
-     * by email
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKeySelective(UserInfo record);
+  int updateByPrimaryKeySelective(UserInfo record);
 
-    int updateByPrimaryKey(UserInfo record);
+  int updateByPrimaryKey(UserInfo record);
 
-    UserInfo selectUserInfoByEmail(@Param("email") String email);
+  UserInfo selectUserInfoByEmail(@Param("email") String email);
 
-    UserInfo selectUserInfoByEmailAndPasswd(
-          @Param("email") String email, @Param("passwd") String passwd);
-
+  UserInfo selectUserInfoByEmailAndPasswd(
+      @Param("email") String email, @Param("passwd") String passwd);
 }

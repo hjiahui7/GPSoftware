@@ -1,6 +1,7 @@
 package software.service;
 
 import software.jsonModel.ResponseObject;
+import software.model.UserInfo;
 import software.model.UserPosts;
 
 import java.util.List;
@@ -8,11 +9,13 @@ import java.util.List;
 public interface UserService {
   boolean register(String firstName, String lastName, String eMail, String passwd, String nickName);
 
-  ResponseObject login(String email, String passwd);
+  UserInfo login(String email, String passwd);
 
-  ResponseObject postTopic(String token, String title, String Content, int motherPostId);
+  int postTopic(String token, String title, String Content, int uid, int motherPostId);
 
-  boolean deletePost(int postId);
+  int deletePost(int postId, int mid, String token, int uid);
 
-  List<UserPosts> getPostsById(int postId);
+  int postComment(String token, String Content, int uid1, int uid2, int pid, int mid);
+
+  int deleteCommentByCid(String token, int cid, int uid, int pid);
 }

@@ -1,150 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="software.dao.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="software.model.UserInfo">
-    <id column="e_mail" jdbcType="VARCHAR" property="eMail" />
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
-    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
-    <result column="p_signature" jdbcType="VARCHAR" property="pSignature" />
-    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-
-
-  <sql id="Base_Column_List">
-    e_mail, id, first_name, last_name, p_signature, passwd, nick_name, create_time
+    <resultMap id="BaseResultMap" type="software.model.UserInfo">
+        <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
+        <result column="e_mail" jdbcType="VARCHAR" property="eMail"/>
+        <result column="p_signature" jdbcType="VARCHAR" property="pSignature"/>
+        <result column="passwd" jdbcType="VARCHAR" property="passwd"/>
+        <result column="passwd_salt" jdbcType="VARCHAR" property="passwdSalt"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="access_time" jdbcType="TIMESTAMP" property="accessTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    uid, first_name, last_name, e_mail, p_signature, passwd, passwd_salt, nick_name, 
+    create_time, access_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from users_info
-    where e_mail = #{eMail,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+
+
+    <select id="selectUserInfoByEmail" parameterType="String" resultMap="BaseResultMap">
+
+        select
+        <include refid="Base_Column_List"/>
+        from users_info where 1=1
+        and e_mail = #{email,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+
+    <select id="selectUserInfoByEmailAndPasswd" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users_info where 1 =1
+        and e_mail = #{email,jdbcType=VARCHAR}
+        and passwd = #{passwd,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users_info
+        where uid = #{uid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from users_info
-    where e_mail = #{eMail,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="software.model.UserInfo">
-    insert into users_info (e_mail, id, first_name, 
-      last_name, p_signature, passwd, 
-      nick_name, create_time)
-    values (#{eMail,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, 
-      #{lastName,jdbcType=VARCHAR}, #{pSignature,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    <insert id="insert" parameterType="software.model.UserInfo">
+    insert into users_info (uid, first_name, last_name, 
+      e_mail, p_signature, passwd, 
+      passwd_salt, nick_name, create_time, 
+      access_time)
+    values (#{uid,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, 
+      #{eMail,jdbcType=VARCHAR}, #{pSignature,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{passwdSalt,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{accessTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="software.model.UserInfo">
-    insert into users_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="eMail != null">
-        e_mail,
-      </if>
-      <if test="id != null">
-        id,
-      </if>
-      <if test="firstName != null">
-        first_name,
-      </if>
-      <if test="lastName != null">
-        last_name,
-      </if>
-      <if test="pSignature != null">
-        p_signature,
-      </if>
-      <if test="passwd != null">
-        passwd,
-      </if>
-      <if test="nickName != null">
-        nick_name,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="eMail != null">
-        #{eMail,jdbcType=VARCHAR},
-      </if>
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="firstName != null">
-        #{firstName,jdbcType=VARCHAR},
-      </if>
-      <if test="lastName != null">
-        #{lastName,jdbcType=VARCHAR},
-      </if>
-      <if test="pSignature != null">
-        #{pSignature,jdbcType=VARCHAR},
-      </if>
-      <if test="passwd != null">
-        #{passwd,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="software.model.UserInfo">
+    <insert id="insertSelective" parameterType="software.model.UserInfo">
+        insert into users_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="firstName != null">
+                first_name,
+            </if>
+            <if test="lastName != null">
+                last_name,
+            </if>
+            <if test="eMail != null">
+                e_mail,
+            </if>
+            <if test="pSignature != null">
+                p_signature,
+            </if>
+            <if test="passwd != null">
+                passwd,
+            </if>
+            <if test="passwdSalt != null">
+                passwd_salt,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="accessTime != null">
+                access_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="firstName != null">
+                #{firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                #{lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="eMail != null">
+                #{eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="pSignature != null">
+                #{pSignature,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="passwdSalt != null">
+                #{passwdSalt,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="accessTime != null">
+                #{accessTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="software.model.UserInfo">
+        update users_info
+        <set>
+            <if test="firstName != null">
+                first_name = #{firstName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastName != null">
+                last_name = #{lastName,jdbcType=VARCHAR},
+            </if>
+            <if test="eMail != null">
+                e_mail = #{eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="pSignature != null">
+                p_signature = #{pSignature,jdbcType=VARCHAR},
+            </if>
+            <if test="passwd != null">
+                passwd = #{passwd,jdbcType=VARCHAR},
+            </if>
+            <if test="passwdSalt != null">
+                passwd_salt = #{passwdSalt,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="accessTime != null">
+                access_time = #{accessTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="software.model.UserInfo">
     update users_info
-    <set>
-      <if test="id != null">
-        id = #{id,jdbcType=INTEGER},
-      </if>
-      <if test="firstName != null">
-        first_name = #{firstName,jdbcType=VARCHAR},
-      </if>
-      <if test="lastName != null">
-        last_name = #{lastName,jdbcType=VARCHAR},
-      </if>
-      <if test="pSignature != null">
-        p_signature = #{pSignature,jdbcType=VARCHAR},
-      </if>
-      <if test="passwd != null">
-        passwd = #{passwd,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where e_mail = #{eMail,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="software.model.UserInfo">
-    update users_info
-    set id = #{id,jdbcType=INTEGER},
-      first_name = #{firstName,jdbcType=VARCHAR},
+    set first_name = #{firstName,jdbcType=VARCHAR},
       last_name = #{lastName,jdbcType=VARCHAR},
+      e_mail = #{eMail,jdbcType=VARCHAR},
       p_signature = #{pSignature,jdbcType=VARCHAR},
       passwd = #{passwd,jdbcType=VARCHAR},
+      passwd_salt = #{passwdSalt,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where e_mail = #{eMail,jdbcType=VARCHAR}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      access_time = #{accessTime,jdbcType=TIMESTAMP}
+    where uid = #{uid,jdbcType=INTEGER}
   </update>
-
-
-  <select id="selectUserInfoByEmail" parameterType="String" resultMap="BaseResultMap">
-
-    select
-    <include refid="Base_Column_List"/>
-    from users_info where 1=1
-    and e_mail = #{email,jdbcType=VARCHAR}
-    limit 1
-  </select>
-
-
-  <select id="selectUserInfoByEmailAndPasswd" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from users_info where 1 =1
-    and e_mail = #{email,jdbcType=VARCHAR}
-    and passwd = #{passwd,jdbcType=VARCHAR}
-    limit 1
-  </select>
 </mapper>

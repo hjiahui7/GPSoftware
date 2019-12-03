@@ -3,20 +3,19 @@ package software.jsonModel;
 import java.util.Date;
 
 public class IndexObject {
-  private int id;
+  private int uid;
+  private int pid;
   private String postTitle;
   private String postData;
   private Date createTime;
   private String nickName;
   private int commentCount;
+  private int level;
 
+  public IndexObject() {}
 
-  public IndexObject() {
-  }
-
-
-  public IndexObject(int id, String postTitle, String postData, Date createTime, String nickName) {
-    this.id = id;
+  public IndexObject(int pid, String postTitle, String postData, Date createTime, String nickName) {
+    this.pid = pid;
     this.postTitle = postTitle;
     this.postData = postData;
     this.createTime = createTime;
@@ -31,12 +30,20 @@ public class IndexObject {
     this.commentCount = commentCount;
   }
 
-  public int getId() {
-    return id;
+  public int getPid() {
+    return pid;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setPid(int pid) {
+    this.pid = pid;
+  }
+
+  public int getUid() {
+    return uid;
+  }
+
+  public void setUid(int uid) {
+    this.uid = uid;
   }
 
   public String getPostTitle() {
@@ -65,6 +72,14 @@ public class IndexObject {
 
   public String getNickName() {
     return nickName;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
   }
 
   public void setNickName(String nickName) {
